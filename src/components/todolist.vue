@@ -2,22 +2,36 @@
   <div class="todolist">
     <h1>{{ msg }}</h1>
     <input v-model="newItem" v-on:keyup.enter="addNew">
+    <h2>未完成</h2>
     <ul>
-      <li v-for="todoItem in todoItems" v-bind:key="todoItem.label" v-bind:class="{finished: todoItem.isFinished}"
+      <li v-for="todoItem in todoItems" v-bind:key="todoItem.label" v-if="todoItem.isFinished"
         v-on:click="toggleFinish(todoItem)">
         {{todoItem.label}}
       </li>
     </ul>
+    <h2>已完成</h2>
+    <ul>
+      <li v-for="todoItem in todoItems" v-bind:key="todoItem.label" v-if="!todoItem.isFinished" class="finished"
+        v-on:click="toggleFinish(todoItem)">
+        {{todoItem.label}}
+      </li>
+    </ul>
+    <counter></counter>
+    <!-- <button-counter></button-counter> -->
   </div>
-
 </template>
 
 <script>
 
 import Store from './store'
+import Counter from '@/components/counter'
+// import ButtonCounter from '@/components/button-counter'
 
 export default {
   name: 'TodoList',
+  components: {
+    Counter
+  },
   data () {
     return {
       msg: 'Todo List - 待办事项',
@@ -34,7 +48,7 @@ export default {
     }
   },
   created: function () {
-    console.log('todoItems is: ' + this.todoItems)
+    // console.log('todoItems is: ' + this.todoItems)
   },
   methods: {
     toggleFinish: function (item) {

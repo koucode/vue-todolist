@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="todolist">
     <h1>{{ msg }}</h1>
     <input v-model="newItem" v-on:keyup.enter="addNew">
     <ul>
@@ -17,7 +17,7 @@
 import Store from './store'
 
 export default {
-  name: 'HelloWorld',
+  name: 'TodoList',
   data () {
     return {
       msg: 'Todo List - 待办事项',
@@ -32,6 +32,9 @@ export default {
       },
       deep: true
     }
+  },
+  created: function () {
+    console.log('todoItems is: ' + this.todoItems)
   },
   methods: {
     toggleFinish: function (item) {
